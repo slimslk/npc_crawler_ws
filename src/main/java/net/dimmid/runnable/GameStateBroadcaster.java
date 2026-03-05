@@ -24,10 +24,14 @@ public class GameStateBroadcaster implements Runnable {
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }
-        broadcastData(playersData);
+        try {
+            broadcastData(playersData);
+        } catch (JsonProcessingException | InterruptedException e) {
+            throw new RuntimeException(e);
+        }
     }
 
-    private void broadcastData(Map<String, String> playersData) {
+    private void broadcastData(Map<String, String> playersData) throws JsonProcessingException, InterruptedException {
         webClientMessageService.broadcastMessagesToClient(playersData);
     }
 

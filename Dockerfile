@@ -1,10 +1,27 @@
+# Build stage
 FROM maven:3.9-eclipse-temurin-21 AS build
-WORKDIR /app
-COPY . /app
-RUN mvn clean package -DskipTests
+WORKDIR /build
 
-FROM eclipse-temurin:21-jre
-WORKDIR /app
-COPY --from=build /app/target/crawler_websocket_server-0.01-SNAPSHOT-jar-with-dependencies.jar app.jar
+COPY pom.xml .
+RUN mvn -B dependency:go-offline
 
-CMD ["java", "-jar", "app.jar"]
+COPY src ./src
+RUN mvn -B package -DskipTests
+
+# Runtime stage
+FROM eclipse-temurin:21-jre-jammy
+
+WORKDIR /app
+
+COPY --from=build /build/target/*jar-with-dependencies.jar app.jar
+
+ENV JAVA_OPTS="\
+-XX:+UseSerialGC \
+-XX:MaxRAMPercentage=65 \
+-XX:+UseContainerSupport \
+-XX:MaxMetaspaceSize=128m \
+-Dio.netty.allocator.numDirectArenas=0 \
+-Dio.netty.allocator.maxOrder=7 \
+-Dio.netty.noPreferDirect=true"
+
+CMD ["sh","-c","java $JAVA_OPTS -jar app.jar"]

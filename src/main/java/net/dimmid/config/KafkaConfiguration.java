@@ -28,16 +28,16 @@ public class KafkaConfiguration {
         );
         Config.getProperty("CLIENT_DNS_LOOKUP").ifPresent(
                 prop -> props.put(ProducerConfig.CLIENT_DNS_LOOKUP_CONFIG, prop));
-        Config.getProperty("TRUSTSTORE_LOCATION").ifPresent(
+        Config.getProperty("SSL_TRUSTSTORE_LOCATION").ifPresent(
                 prop -> props.put(SslConfigs.SSL_TRUSTSTORE_LOCATION_CONFIG, prop)
         );
-        Config.getProperty("TRUSTSTORE_PASSWORD").ifPresent(
+        Config.getProperty("SSL_TRUSTSTORE_PASSWORD").ifPresent(
                 prop -> props.put(SslConfigs.SSL_TRUSTSTORE_PASSWORD_CONFIG, prop)
         );
-        Config.getProperty("KEYSTORE_LOCATION").ifPresent(
+        Config.getProperty("SSL_KEYSTORE_LOCATION").ifPresent(
                 prop -> props.put(SslConfigs.SSL_KEYSTORE_LOCATION_CONFIG, prop)
         );
-        Config.getProperty("KEYSTORE_PASSWORD").ifPresent(
+        Config.getProperty("SSL_KEYSTORE_PASSWORD").ifPresent(
                 prop -> props.put(SslConfigs.SSL_KEYSTORE_PASSWORD_CONFIG, prop)
         );
 

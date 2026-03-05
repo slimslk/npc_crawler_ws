@@ -3,19 +3,19 @@ package net.dimmid.ws.util;
 import io.jsonwebtoken.*;
 
 import java.security.Key;
-import java.util.Date;
 import io.jsonwebtoken.security.Keys;
+import net.dimmid.config.Config;
 
 public class JwtUtil {
-    private static final Key key = Keys.hmacShaKeyFor("my-secret-key-my-secret-key".getBytes());
+    private static final Key key;
 
-    public static String generateToken(String userId) {
-        return Jwts.builder()
-                .setSubject(userId)
-                .setIssuedAt(new Date())
-                .setExpiration(new Date(System.currentTimeMillis() + 3600_000)) // 1 hour
-                .signWith(key)
-                .compact();
+    static {
+        try {
+            key = Keys.hmacShaKeyFor(
+                    Config.getOrDefault("JWT_TOKEN", "testtesttesttesttesttesttesttest\n").getBytes());
+        } catch (Exception e) {
+            throw new JwtException(e.getMessage());
+        }
     }
 
     public static String validateAndGetUserId(String token) throws JwtException {

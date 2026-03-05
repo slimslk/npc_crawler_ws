@@ -17,6 +17,7 @@ public class Player {
     private int defence;
     private boolean isDead;
     private boolean isHasMap;
+    private boolean isSleep;
 
     public Player(String id,
                   String name,
@@ -30,7 +31,9 @@ public class Player {
                   int attackModifier,
                   int attackDamage,
                   int defence,
-                  boolean isDead, boolean isHasMap) {
+                  boolean isDead,
+                  boolean isSleep,
+                  boolean isHasMap) {
         this.id = id;
         this.name = name;
         this.health = health;
@@ -45,6 +48,7 @@ public class Player {
         this.attackDamage = attackDamage;
         this.defence = defence;
         this.isHasMap = isHasMap;
+        this.isSleep = isSleep;
     }
 
     public Player() {
@@ -101,6 +105,10 @@ public class Player {
 
     public boolean isDead() {
         return isDead;
+    }
+
+    public boolean isSleep() {
+        return isSleep;
     }
 
     public void setId(String id) {
@@ -161,5 +169,9 @@ public class Player {
 
     public void setHasMap(boolean hasMap) {
         isHasMap = hasMap;
+    }
+
+    public void setSleep(boolean sleep) {
+        this.isSleep = sleep;
     }
 }

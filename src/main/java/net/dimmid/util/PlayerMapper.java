@@ -19,5 +19,6 @@ public class PlayerMapper {
         player.setAttackModifier(playerDTO.attackModifier());
         player.setAttackDamage(playerDTO.attackDamage());
         player.setDefence(playerDTO.defence());
+        player.setSleep(playerDTO.isSleep());
     }
 }

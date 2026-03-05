@@ -9,7 +9,7 @@ import java.util.Optional;
 import java.util.Properties;
 
 public class Config {
-    private static final String CONFIG_FILE_NAME = "config.properties";
+    private static final String CONFIG_FILE_NAME = "config_dev.properties";
     private static final Properties properties = new Properties();
     private static Config instance = null;
 

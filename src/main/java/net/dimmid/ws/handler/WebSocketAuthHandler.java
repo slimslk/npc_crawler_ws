@@ -36,7 +36,6 @@ public class WebSocketAuthHandler extends SimpleChannelInboundHandler<FullHttpRe
     }
 
     private String getAuthToken(FullHttpRequest request) {
-        System.out.println(request.headers());
         String token = request.headers().get(HttpHeaderNames.AUTHORIZATION);
         if (token != null && token.startsWith("Bearer ")) {
             return token.substring(7);

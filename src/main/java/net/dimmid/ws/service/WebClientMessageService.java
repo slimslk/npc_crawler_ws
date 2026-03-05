@@ -68,14 +68,12 @@ public class WebClientMessageService {
         }
         json = addUserIdToMessage(json,
                 ctx.channel().attr(WSAttributes.USER).get().userId());
-        System.out.println(json);
         PlayerEvent event = convertMessageToPlayerEvent(json);
         eventInputQueue.put(event);
     }
 
     private String addUserIdToMessage(String json, String userId) {
         Map<String, Object> jsonMap = WSJsonUtil.fromJson(json);
-        System.out.println(jsonMap);
         jsonMap.put("user_id", userId);
         return WSJsonUtil.toJsonObj(jsonMap).orElse("");
     }
